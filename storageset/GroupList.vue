@@ -67,7 +67,7 @@
         </a-modal>
       <a-dropdown >
         <a-menu slot="overlay">
-          <a-menu-item key="1"><a-icon type="cloud-upload" />导入配置文件</a-menu-item>
+          <a-menu-item key="1"><a-icon type="cloud-upload" />导入卷组配置文件</a-menu-item>
           <!-- lock | unlock -->
           <a-menu-item key="2"><a-icon type="cloud-download" />导出配置文件</a-menu-item>
         </a-menu>
@@ -109,34 +109,6 @@
 
       <span slot="action" slot-scope="text, record">
         <template>
-          <span v-if="record.id < 3" >
-            <a @click="$refs.deleteModal.del()" disabled="true">删除</a>
-            
-          </span>
-          <span v-else>
-            <a-popconfirm title="是否要删除此卷组？" @confirm="remove(record.id)">
-              <a>删除</a>
-            </a-popconfirm>
-          </span> 
-          <a-divider type="vertical" />
-          <span v-if="record.status < 1" >
-            <span v-if="record.status === 0">
-               <a @click="$refs.deleteModal.del()">导入</a>
-            </span>
-            <span v-else>
-                <a-popconfirm title="是否导入此卷组？" @confirm="remove(record.id)">
-                  <a>导入</a>
-                </a-popconfirm>
-            </span> 
-          </span>
-          <span v-else>
-          <a @click="handleEdit(record)" disabled="true">导入</a>
-          </span>
-          
-          <!-- <a-divider type="vertical" />
-          <a @click="handleEdit(record)">卷磁盘管理</a> -->
-          <a-divider type="vertical" />
-          <!-- <a @click="handleSub(record)">订阅报警</a> -->
           <a-dropdown>
               <a class="ant-dropdown-link" href="#">
                 更多操作 <a-icon type="down" />
@@ -295,7 +267,32 @@
                       </template>
                     </a-modal>
                 </a-sub-menu>
-                <a-menu-item  @click="() => setAdd_Disk(true)">卷组扩容</a-menu-item>
+                <a-menu-item  @click="() => setAdd_Disk(true)">扩容卷组</a-menu-item>
+                <a-menu-item>
+                <span v-if="record.id < 3" >
+                  <a @click="$refs.deleteModal.del()" disabled="true">删除卷组</a>
+                </span>
+                <span v-else>
+                    <a-popconfirm title="是否要删除卷组此卷组？" @confirm="remove(record.id)">
+                      <span>删除卷组</span>
+                    </a-popconfirm>
+                </span> 
+                </a-menu-item>
+                <a-menu-item>
+                <span v-if="record.status < 1" >
+                  <span v-if="record.status === 0">
+                     <a @click="$refs.deleteModal.del()">导入卷组</a>
+                  </span>
+                  <span v-else>
+                      <a-popconfirm title="是否导入卷组此卷组？" @confirm="remove(record.id)">
+                        <span>导入卷组</span>
+                      </a-popconfirm>
+                  </span> 
+                </span>
+                <span v-else>
+                  <a @click="handleEdit(record)" disabled="true">导入卷组</a>
+                </span>
+                </a-menu-item>
                  <a-modal
                      title="扩容XXX卷组(应自动列出同规格可用的磁盘)"
                      centered
@@ -310,6 +307,9 @@
                        <a-table :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}":columns="add_columns" :dataSource="cache_data"  />
                      </template>
                    </a-modal>
+                   
+                   
+                   
               </a-menu>
             </a-dropdown>
             
@@ -330,7 +330,7 @@ import { getRoleList, getServiceList} from '@/api/manage'
 const statusMap = {
   0: {
     status: 'default',
-    text: '未导入'
+    text: '未导入卷组'
   },
   1: {
     status: 'success',
@@ -397,7 +397,7 @@ export default {
         {
           title: '操作',
           dataIndex: 'action',
-          width: '130px',
+          width: '100px',
           scopedSlots: { customRender: 'action' }
         }
       ],

@@ -14,27 +14,42 @@
        </a-popconfirm>
      </span>
      <span v-else>
-       <a-popconfirm placement="top" okText="Yes" cancelText="No" @confirm="confirm">
-         <template slot="title">
-           <p>是否确定关闭该服务？</p>
-         </template>
-         <a>关闭服务</a>
-       </a-popconfirm>
-       <a-divider type="vertical" />
-       <a-popconfirm placement="top" okText="Yes" cancelText="No" @confirm="confirm">
-         <template slot="title">
-           <p>是否确定重启该服务？</p>
-         </template>
-         <a>重启服务</a>
-       </a-popconfirm>
-       <span v-if="record.key < '2'"><a-divider type="vertical" />
-        <span v-if="record.key === '0'">
-           <a @click="() => Modify_Smb(true)">修改版本</a>
-        </span>
-       <span v-else-if="record.key === '1'">
-          <a @click="() => Modify_Nfs(true)">修改版本</a>
-       </span>
-       </span>
+       <a-dropdown>
+           <a class="ant-dropdown-link" href="#">
+             更多操作 <a-icon type="down" />
+           </a>
+           <a-menu slot="overlay">
+             <a-menu-item>
+               <a-popconfirm placement="top" okText="Yes" cancelText="No" @confirm="confirm">
+                 <template slot="title">
+                   <p>是否确定关闭该服务？</p>
+                 </template>
+                 <a>关闭服务</a>
+               </a-popconfirm>
+             </a-menu-item>
+             <a-menu-item>
+               <a-popconfirm placement="top" okText="Yes" cancelText="No" @confirm="confirm">
+                 <template slot="title">
+                   <p>是否确定重启该服务？</p>
+                 </template>
+                 <a>重启服务</a>
+               </a-popconfirm>
+             </a-menu-item>
+             <a-menu-item>
+               <span v-if="record.key < '2'">
+                  <span v-if="record.key === '0'">
+                     <span @click="() => Modify_Smb(true)">修改版本</span>
+                  </span>
+                   <span v-else-if="record.key === '1'">
+                      <span @click="() => Modify_Nfs(true)">修改版本</span>
+                   </span>
+                </span>
+                <span v-else>
+                   <a disabled="True">修改版本</a>
+                </span>
+              </a-menu-item>
+              </a-menu>
+            </a-dropdown>
      </span>
    </span>
   </a-table>
@@ -149,7 +164,7 @@
           {
             title: '操作',
             dataIndex: 'operation',
-            width: '300px',
+            width: '150px',
             scopedSlots: { customRender: 'operation' },
           }
         ],
