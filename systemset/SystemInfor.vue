@@ -13,6 +13,17 @@
         :loading="memberLoading"
       >
         <template v-for="(col, i) in ['dvalue', 'workId']" :slot="col" slot-scope="text, record">
+          <span v-if="record.key==='12'">
+            <a-select
+              :key="col"
+              v-if="record.editable"
+              style="margin: -5px 0,width:200px"
+              @change="e => handleChange(e.target.value, record.key, col)"
+            >  <a-select-option value="集群管理节点">集群管理节点</a-select-option>
+            </a-select>
+            <template >{{ text }}</template>
+          </span>
+          <span v-else>
           <a-input
             :key="col"
             v-if="record.editable"
@@ -21,6 +32,7 @@
             @change="e => handleChange(e.target.value, record.key, col)"
           />
           <template >{{ text }}</template>
+         </span>
         </template>
         <template slot="operation" slot-scope="text, record">
           <template v-if="record.editable">
@@ -128,6 +140,10 @@ export default {
         {
           key: '11',
           name: '系统码'
+        },
+        {
+          key: '12',
+          name: '集群状态'
         }
       ],
       // table
@@ -210,6 +226,12 @@ export default {
           dvalue: '306C73627566696D',
           editable: false,
           saveable:false
+        },
+        {
+          key: '12',
+          dvalue: '单机运行',
+          editable: false,
+          saveable:true
         }
       ],
 

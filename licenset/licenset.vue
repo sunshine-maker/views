@@ -17,9 +17,6 @@
                 <a-button> <a-icon type="upload" /> 导入注册码 </a-button>
               </a-upload>
           </div>
-          <div style="float:left;margin-left: 15px;">
-            <a-button @click="() => Add_License(true)"> <a-icon type="plus" /> 添加注册码 </a-button>
-          </div >
         </div>
       </div>
       <div>
