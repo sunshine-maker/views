@@ -27,6 +27,7 @@
               <a-popconfirm placement="top" okText="Yes" cancelText="No" @confirm="confirm">
                 <template slot="title">
                   <p>是否确定批量删除所有已选节点？</p>
+				  <a-checkbox>确认修改</a-checkbox>
                 </template>
                 <a-icon type="delete"/> <a>批量删除</a>
               </a-popconfirm>
@@ -52,6 +53,7 @@
                      <a-popconfirm placement="left" okText="Yes" cancelText="No" @confirm="confirm">
                        <template slot="title">
                          <p>是否确定删除该分组及下属所有节点？</p>
+						 <a-checkbox>确认修改</a-checkbox>
                        </template>
                        <span><a>删除分组</a></span>
                      </a-popconfirm>
@@ -142,6 +144,7 @@
                                 <a-popconfirm placement="left" okText="Yes" cancelText="No" @confirm="confirm">
                                   <template slot="title">
                                     <p>是否确定删除该分组及下属所有节点？</p>
+									<a-checkbox>确认修改</a-checkbox>
                                   </template>
                                   <span><a>删除设备</a></span>
                                 </a-popconfirm>
@@ -260,6 +263,7 @@ const statusMap = {
     text: '故障'
   }
 }
+
 const columns = [
     {
       title: '分组名称',
@@ -564,7 +568,7 @@ export default {
 
     .account-settings-info-left {
       border-right: 1px solid #e8e8e8;
-      width: 224px;
+      width: 150px;
     }
 
     .account-settings-info-right {

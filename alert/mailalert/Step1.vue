@@ -57,7 +57,6 @@
         <a-button type="primary" @click="nextStep">下一步</a-button>
       </a-form-item>
     </a-form>
-    <a-divider />
   </div>
 </template>
 

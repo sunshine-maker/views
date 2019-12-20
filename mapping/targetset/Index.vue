@@ -10,29 +10,19 @@
             type="inner"
             @openChange="onOpenChange"
           >
-            <a-menu-item key="/version/marstor">
-              <router-link :to="{ name: 'marstor' }">
-                系统版本管理
+            <a-menu-item key="/mapping/targetset/iSCSI">
+              <router-link :to="{ name: 'targetset-iscsi' }">
+                iSCSI目标器
               </router-link>
             </a-menu-item>
-            <a-menu-item key="/version/mbaBackup">
-              <router-link :to="{ name: 'mbaBackup' }">
-                统一备份管理
+            <a-menu-item key="/mapping/targetset/FC">
+              <router-link :to="{ name: 'targetset-fc' }">
+                FC目标器
               </router-link>
             </a-menu-item>
-            <a-menu-item key="/version/cdmbackup">
-              <router-link :to="{ name: 'cdmbackup' }">
-                高级备份管理
-              </router-link>
-            </a-menu-item>
-            <a-menu-item key="/version/vm">
-              <router-link :to="{ name: 'vm' }">
-                虚拟机模板管理
-              </router-link>
-            </a-menu-item>
-           <a-menu-item key="/version/reset">
-              <router-link :to="{ name: 'reset' }">
-                恢复出厂状态
+            <a-menu-item key="/mapping/targetset/IB">
+              <router-link :to="{ name: 'targetset-ib' }">
+                IB目标器
               </router-link>
             </a-menu-item>
           </a-menu>

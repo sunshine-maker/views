@@ -9,6 +9,7 @@
        <a-popconfirm placement="top" okText="Yes" cancelText="No" @confirm="confirm">
          <template slot="title">
            <p>是否确定开启该服务？</p>
+		   <a-checkbox>确认修改</a-checkbox>
          </template>
          <a>开启服务</a>
        </a-popconfirm>
@@ -23,6 +24,7 @@
                <a-popconfirm placement="top" okText="Yes" cancelText="No" @confirm="confirm">
                  <template slot="title">
                    <p>是否确定关闭该服务？</p>
+				   <a-checkbox>确认修改</a-checkbox>
                  </template>
                  <a>关闭服务</a>
                </a-popconfirm>
@@ -31,6 +33,7 @@
                <a-popconfirm placement="top" okText="Yes" cancelText="No" @confirm="confirm">
                  <template slot="title">
                    <p>是否确定重启该服务？</p>
+				   <a-checkbox>确认修改</a-checkbox>
                  </template>
                  <a>重启服务</a>
                </a-popconfirm>

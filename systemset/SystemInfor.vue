@@ -144,6 +144,10 @@ export default {
         {
           key: '12',
           name: '集群状态'
+        },
+        {
+          key: '13',
+          name: '全局启动器'
         }
       ],
       // table
@@ -232,6 +236,12 @@ export default {
           dvalue: '单机运行',
           editable: false,
           saveable:true
+        },
+        {
+          key: '13',
+          dvalue: 'iqn.1986-03.com.sun:01:e000000000.59dc6ab7(开启Initiator服务后显示该行)',
+          editable: false,
+          saveable:false
         }
       ],
 

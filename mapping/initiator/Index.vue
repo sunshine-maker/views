@@ -10,29 +10,19 @@
             type="inner"
             @openChange="onOpenChange"
           >
-            <a-menu-item key="/version/marstor">
-              <router-link :to="{ name: 'marstor' }">
-                系统版本管理
+            <a-menu-item key="/mapping/initiator/iSCSI">
+              <router-link :to="{ name: 'initiator-iscsi' }">
+                iSCSI启动器
               </router-link>
             </a-menu-item>
-            <a-menu-item key="/version/mbaBackup">
-              <router-link :to="{ name: 'mbaBackup' }">
-                统一备份管理
+            <a-menu-item key="/mapping/initiator/FC">
+              <router-link :to="{ name: 'initiator-fc' }">
+                FC启动器
               </router-link>
             </a-menu-item>
-            <a-menu-item key="/version/cdmbackup">
-              <router-link :to="{ name: 'cdmbackup' }">
-                高级备份管理
-              </router-link>
-            </a-menu-item>
-            <a-menu-item key="/version/vm">
-              <router-link :to="{ name: 'vm' }">
-                虚拟机模板管理
-              </router-link>
-            </a-menu-item>
-           <a-menu-item key="/version/reset">
-              <router-link :to="{ name: 'reset' }">
-                恢复出厂状态
+            <a-menu-item key="/mapping/initiator/IB">
+              <router-link :to="{ name: 'initiator-ib' }">
+                IB启动器
               </router-link>
             </a-menu-item>
           </a-menu>

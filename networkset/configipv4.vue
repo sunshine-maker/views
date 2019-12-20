@@ -43,6 +43,7 @@
            <a-popconfirm placement="top" okText="Yes" cancelText="No" @confirm="confirm">
              <template slot="title">
                <p>是否确定启用该网卡？</p>
+			   <a-checkbox>确认修改</a-checkbox>
              </template>
              <a>启用</a>
            </a-popconfirm>
@@ -360,6 +361,7 @@
               <a-popconfirm placement="top" okText="Yes" cancelText="No" @confirm="confirm">
                 <template slot="title">
                   <p>是否确定删除该DNS信息？</p>
+				  <a-checkbox>确认修改</a-checkbox>
                 </template>
                 <a>删除</a>
               </a-popconfirm>
@@ -405,6 +407,7 @@
                         <a-popconfirm placement="top" okText="Yes" cancelText="No" @confirm="confirm">
                           <template slot="title">
                             <p>是否确定删除该DNS信息？</p>
+							<a-checkbox>确认修改</a-checkbox>
                           </template>
                           <a>删除聚合</a>
                         </a-popconfirm>
