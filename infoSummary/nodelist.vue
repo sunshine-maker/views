@@ -1,6 +1,5 @@
 <template>
-  <div class="page-header-index-wide">
-    <a-card :bordered="false" :bodyStyle="{ padding: '16px 0', height: '100%' }" :style="{ height: '100%' }">
+    <a-card :bordered="false" >
         <a-button type="primary" icon="upload" @click="() => Add_Group(true)">添加分组</a-button>
         <a-modal
              title="新加分组"
@@ -234,8 +233,6 @@
                </a-form>
        </a-modal>
     </a-card>
-  </div>
-  
 </template>
 
 <script>

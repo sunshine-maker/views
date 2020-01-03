@@ -41,11 +41,50 @@
               </a-menu-item>
               <a-menu-item key="1">
                 <a @click="() => Tapes(true)"><span>磁带入库</span></a>
+                <a-modal
+                      title="磁带入库"
+                      centered
+                      v-model="tapes"
+                      @ok="() => tapes = false"
+                      :width="700"
+                      :visible="visible"
+                      :confirmLoading="confirmLoading"
+                   >
+                   <a-spin :spinning="confirmLoading">
+                     <a-form :form="form">
+                       <a-form-item>
+                         <a-row>
+                           <a-col :sm="4" :xs="24">
+                             <span>剩余槽位</span>
+                           </a-col>
+                           <a-col :sm="6" :xs="24">
+                             <span>17</span>
+                           </a-col>  
+                         </a-row>
+                       </a-form-item>
+                       <a-form-item>
+                         <a-row>
+                           <a-col :sm="4" :xs="24">
+                             <span>选择磁带库</span>
+                           </a-col>
+                           <a-col :sm="10" :xs="24">
+                             <a-select defaultValue="tttt" >
+                               <a-select-option value="tttt">tttt</a-select-option>
+                             </a-select>
+                           </a-col>  
+                         </a-row>
+                       </a-form-item>
+                       <a-form-item>
+                         <a-table :columns="in_columns" :dataSource="in_data" :rowSelection="rowSelection"/>
+                       </a-form-item>
+                     </a-form>
+                   </a-spin>
+                </a-modal>
               </a-menu-item>
               <a-menu-item key="2">
                 <a @click="() => list_Tapes(true)"><span>磁带清单</span></a>
                 <a-modal
-                      title="磁带入库"
+                      title="磁带清单"
                       centered
                       v-model="list_tapes"
                       @ok="() => list_tapes = false"
@@ -63,7 +102,272 @@
                 </a-modal>
               </a-menu-item>
               <a-menu-item key="3">
-                <span v-if="record.key < '2'">
+                <a @click="() => por_Config(true)"><span>存储属性</span></a>
+                <a-modal
+                      title="存储属性"
+                      centered
+                      v-model="por_config"
+                      @ok="() => por_config = false"
+                      :width="700"
+                      :visible="visible"
+                      :confirmLoading="confirmLoading"
+                   >
+                   <a-spin :spinning="confirmLoading">
+                     <a-form-item>
+                         <a-row>
+                           <a-col :sm="8" :xs="24">
+                             <a-checkbox>启用重复数据删除</a-checkbox>
+                           </a-col>
+                           <a-col :sm="8" :xs="24">
+                             <a-checkbox>启用数据校验</a-checkbox>
+                           </a-col>
+                         </a-row>
+                       </a-form-item>
+                       <a-form-item>
+                         <a-row>
+                           <a-col :sm="8" :xs="24">
+                             <a-checkbox>启用数据压缩</a-checkbox>
+                           </a-col>
+                           <a-col :sm="8" :xs="24">
+                             <a-select defaultValue="高效" style="width: 120px" @change="handleChange">
+                               <a-select-option value="中等">中等</a-select-option>
+                               <a-select-option value="高等">高等</a-select-option>
+                               <a-select-option value="高效">高效</a-select-option>
+                             </a-select>
+                           </a-col>
+                         </a-row>
+                       </a-form-item>
+                       <a-form-item>
+                         <a-row>
+                           <a-col :sm="8" :xs="24">
+                             <a-checkbox>启用配额管理</a-checkbox>
+                           </a-col>
+                           <!-- <a-col :sm="7" :xs="24">
+                             <span>最大分配空间</span>
+                           </a-col> -->
+                           <a-col :sm="10" :xs="24">
+                             <div style="float:left">
+                             <a-input-number
+                               :defaultValue="100"
+                               :min="0"
+                               :max="100000"
+                               :formatter="value => `${value}GB`"
+                               :parser="value => value.replace('GB', '')"
+                             />
+                             </div>
+                           <div style="width:15px;height:15px;margin-left: 15px;float:left;">
+                             <a-popover placement="right">
+                                 <template slot="content">
+                                   <span>不得小于4GB</span>
+                                 </template>
+                                 <a-button shape="circle" icon="question-circle" :size="small"/>
+                               </a-popover>
+                            </div>
+                            </a-col>
+                         </a-row>
+                       </a-form-item>
+                       <a-form-item>
+                         <a-row>
+                           <a-col :sm="8" :xs="24">
+                             <span>块大小</span>
+                           </a-col>
+                           <a-col :sm="8" :xs="24">
+                             <a-select defaultValue="128KB" style="width: 120px" @change="handleChange">
+                               <a-select-option value="4">4KB</a-select-option>
+                               <a-select-option value="8">8KB</a-select-option>
+                               <a-select-option value="16">16KB</a-select-option>
+                               <a-select-option value="32">32KB</a-select-option>
+                               <a-select-option value="64">64KB</a-select-option>
+                               <a-select-option value="128">128KB</a-select-option>
+                             </a-select>
+                           </a-col>
+                         </a-row>
+                       </a-form-item>
+                       <a-form-item>
+                         <a-row>
+                           <a-col :sm="8" :xs="24">
+                             <span>同步写入</span>
+                           </a-col>
+                           <a-col :sm="8" :xs="24">
+                             <a-select defaultValue="标准" style="width: 120px" @change="handleChange">
+                               <a-select-option value="总是">总是</a-select-option>
+                               <a-select-option value="标准">标准</a-select-option>
+                               <a-select-option value="关闭">关闭</a-select-option>
+                             </a-select>
+                           </a-col>
+                         </a-row>
+                       </a-form-item>
+                       <a-form-item>
+                         <a-row>
+                           <a-col :sm="8" :xs="24">
+                             <a-checkbox>授权用户</a-checkbox>
+                           </a-col>
+                           <a-col :sm="16" :xs="24">
+                             <a-select style="width: 120px" @change="handleChange" />
+                           </a-col>
+                         </a-row>
+                       </a-form-item>
+                     </a-form>   
+                   </a-spin>
+                </a-modal>
+              </a-menu-item>
+              <a-sub-menu title="快照保护" key="4">
+                 <a-menu-item>
+                   <a @click="() => list_Snapshot(true)"><span>快照清单</span></a>
+                   <a-modal
+                         title="快照清单"
+                         centered
+                         v-model="list_snapshot"
+                         @ok="() => list_snapshot = false"
+                         :width="700"
+                         :visible="visible"
+                         :confirmLoading="confirmLoading"
+                      >
+                        
+                      <a-spin :spinning="confirmLoading">
+                        <a-form :form="form">
+                          <a-form-item>
+                            <a-row :gutter="48">
+                              <a-col :sm="4" :xs="24">
+                                <a-dropdown>
+                                  <a-menu slot="overlay">
+                                    <a-menu-item key="1">
+                                      <a-popconfirm placement="top" okText="Yes" cancelText="No">
+                                        <template slot="title">
+                                          <p>是否确定批量删除所有已选快照？</p>
+                                          <a-checkbox>确认删除</a-checkbox>
+                                        </template>
+                                        <a-icon type="delete"/> <a>批量删除</a>
+                                      </a-popconfirm>
+                                    </a-menu-item>
+                                  </a-menu>
+                                  <a-button style="margin-left: 8px">
+                                    批量操作 <a-icon type="down" />
+                                  </a-button>
+                                </a-dropdown>
+                              </a-col>
+                              <a-col :sm="6" :xs="24">
+                                <a-popconfirm placement="top" okText="Yes" cancelText="No">
+                                  <template slot="title">
+                                    <p>是否确定手动创建快照？</p>
+                                    <a-checkbox>确认创建</a-checkbox>
+                                  </template>
+                                  <a-button>创建快照</a-button>
+                                </a-popconfirm>
+                              </a-col>
+                            </a-row>
+                          </a-form-item>
+                          <a-form-item>
+                            
+                            <a-table :columns="sp_columns" :dataSource="sp_data" :rowSelection="rowSelection">
+                              <span slot="action" slot-scope="text, record">
+                                <a-dropdown :trigger="['click']">
+                                  <a class="ant-dropdown-link" > 操作 <a-icon type="down" /> </a>
+                                  <a-menu slot="overlay">
+                                    <a-menu-item key="0">
+                                      <a-popconfirm placement="top" okText="Yes" cancelText="No">
+                                        <template slot="title">
+                                          <p>是否确定回滚选中快照？</p>
+                                          <a-checkbox>确认回滚</a-checkbox>
+                                        </template>
+                                        <span>回滚快照</span>
+                                      </a-popconfirm>
+                                    </a-menu-item>
+                                    <a-menu-item key="0">
+                                      <a-popconfirm placement="top" okText="Yes" cancelText="No">
+                                        <template slot="title">
+                                          <p>是否确定删除选中快照？</p>
+                                          <a-checkbox>确认删除</a-checkbox>
+                                        </template>
+                                        <span>删除快照</span>
+                                      </a-popconfirm>
+                                    </a-menu-item>
+                                  </a-menu>
+                                </a-dropdown>
+                              </span>
+                            </a-table>
+                          </a-form-item>
+                        </a-form>   
+                      </a-spin>
+                   </a-modal>
+                 </a-menu-item>
+                 <a-menu-item>
+                   <a @click="() => auto_Snapshot(true)"><span>自动快照</span></a>
+                   <a-modal
+                         title="设置XXX存储空间自动快照"
+                         centered
+                         v-model="auto_snapshot"
+                         @ok="() => auto_snapshot = false"
+                         :width="400"
+                         :visible="visible"
+                         :confirmLoading="confirmLoading"
+                      >
+                      <a-spin :spinning="confirmLoading">
+                        <a-form :form="form">
+                          <a-form-item>
+                            <a-row>
+                              <a-switch checkedChildren="开" unCheckedChildren="关" defaultChecked />
+                              <span>自动快照</span>
+                            </a-row>
+                            <a-row>
+                              <a-col :sm="7" :xs="24">
+                                <span>快照间隔</span>
+                              </a-col>
+                              <a-col :sm="10" :xs="24">
+                                <a-input-number
+                                      :defaultValue="100"
+                                      :min="0"
+                                      :max="10000"
+                                      :formatter="value => `${value}分钟`"
+                                      :parser="value => value.replace('分钟', '')"
+                                      @change="onChange"
+                                    />
+                              </a-col>  
+                            </a-row>
+                            
+                            <a-row>
+                              <a-col :sm="7" :xs="24">
+                                <span>保留个数</span>
+                              </a-col>
+                              <a-col :sm="10" :xs="24">
+                                <a-input-number
+                                      :defaultValue="100"
+                                      :min="0"
+                                      :max="10000"
+                                      :formatter="value => `${value}个`"
+                                      :parser="value => value.replace('个', '')"
+                                      @change="onChange"
+                                    />
+                              </a-col>  
+                            </a-row>
+                          </a-form-item>
+                        </a-form>   
+                      </a-spin>
+                   </a-modal>
+                 </a-menu-item>
+               </a-sub-menu>
+              <a-menu-item key="5">
+                <span v-if ="record.status === '4'">
+                  <a-popconfirm placement="left" okText="Yes" cancelText="No">
+                    <template slot="title">
+                      <p>是否确认上线该存储空间？</p>
+                      <a-checkbox>确认上线该存储空间</a-checkbox>
+                    </template>
+                    <span>空间上线</span>
+                  </a-popconfirm></a>
+                </span>
+                <span v-else>
+                  <a-popconfirm placement="left" okText="Yes" cancelText="No">
+                    <template slot="title">
+                      <p>是否确认离线该存储空间？</p>
+                      <a-checkbox>确认离线该存储空间</a-checkbox>
+                    </template>
+                    <span>空间离线</span>
+                  </a-popconfirm></a>
+                </span>
+              </a-menu-item>
+              <a-menu-item key="6">
+                <span v-if ="record.key < '2'">
                   <a disabled="true">删除磁带架</a>
                 </span>
                 <span v-else>
@@ -76,59 +380,6 @@
                     </a-popconfirm></a>
                 </span>
               </a-menu-item>
-              <a-modal
-                    title="磁带入库"
-                    centered
-                    v-model="tapes"
-                    @ok="() => tapes = false"
-                    :width="700"
-                    :visible="visible"
-                    :confirmLoading="confirmLoading"
-                 >
-                 <a-spin :spinning="confirmLoading">
-                   <a-form :form="form">
-                     <a-form-item>
-                       <a-row>
-                         <a-col :sm="4" :xs="24">
-                           <span>剩余槽位</span>
-                         </a-col>
-                         <a-col :sm="6" :xs="24">
-                           <span>17</span>
-                         </a-col>  
-                       </a-row>
-                     </a-form-item>
-                     <a-form-item>
-                       <a-row>
-                         <a-col :sm="4" :xs="24">
-                           <span>选择磁带库</span>
-                         </a-col>
-                         <a-col :sm="10" :xs="24">
-                           <a-select defaultValue="tttt" >
-                             <a-select-option value="tttt">tttt</a-select-option>
-                           </a-select>
-                         </a-col>  
-                       </a-row>
-                     </a-form-item>
-                     <a-form-item>
-                       <a-row>
-                         <a-col :sm="30" :xs="24">
-                           <a-transfer
-                               :dataSource="mockData"
-                               :listStyle="{
-                                 width: '300px',
-                                 height: '300px',
-                               }"
-                               :targetKeys="targetKeys"
-                               @change="handleChange"
-                               :render="renderItem"
-                             >
-                           </a-transfer>
-                         </a-col>  
-                       </a-row>
-                     </a-form-item>
-                   </a-form>
-                 </a-spin>
-              </a-modal>
               <a-modal
                     title="移动XXX磁带架上的磁带"
                     centered
@@ -177,6 +428,7 @@
             </a-menu>
           </a-dropdown>
         </span>
+        <a-modal
              title="修改XXX磁带库属性"
              centered
              v-model="add_member"
@@ -291,6 +543,9 @@ export default {
       list_tapes: false,
       tapes: false,
       mv_tapes: false,
+      por_config: false,
+      list_snapshot: false,
+      auto_snapshot: false,
       selectedRowKeys: [],
       selectedRows: [],
       openKeys: [],
@@ -303,6 +558,38 @@ export default {
       // 查询参数
       queryParam: {},
       // 表头
+      sp_columns: [
+        {
+          title: '描述',
+          dataIndex: 'describe',
+        },
+        {
+          title: '创建时间',
+          dataIndex: 'create_time',
+        },
+        {
+          title: '变量大小',
+          dataIndex: 'size',
+        },
+        {
+          title: '操作',
+          dataIndex: 'action',
+          width: '100px',
+          scopedSlots: { customRender: 'action' }
+        }
+      ],
+      sp_data: [
+        {
+          describe: '自动',
+          create_time: '2019-12-19 14:18:43',
+          size: '1.55MB'
+        },
+        {
+          describe: 'test1',
+          create_time: '2019-12-19 11:16:27',
+          size: '4.76MB'
+        }
+      ],
       in_columns: [
         {
           title: '磁带条码',
@@ -369,7 +656,7 @@ export default {
       data: [
         {
           key: '0',
-          storage_name: 'SYSVOL',
+          storage_name: 'SYSVOL/TAPE',
           status: '0',
           storage_cap: '100GB',
           storage_used: '10GB',
@@ -377,7 +664,7 @@ export default {
         },
         {
           key: '0',
-          storage_name: 'test',
+          storage_name: 'test/TAPE',
           status: '0',
           storage_cap: '100GB',
           storage_used: '10GB',
@@ -385,7 +672,7 @@ export default {
         },
         {
           key: '0',
-          storage_name: '111111',
+          storage_name: '111111/TAPE',
           status: '4',
           storage_cap: '100GB',
           storage_used: '10GB',
@@ -400,6 +687,15 @@ export default {
        },
        show_Pro(show_pro){
          this.show_pro = show_pro;
+       },
+       list_Snapshot(list_snapshot){
+         this.list_snapshot = list_snapshot;
+       },
+       auto_Snapshot(auto_snapshot){
+         this.auto_snapshot = auto_snapshot;
+       },
+       por_Config(por_config){
+         this.por_config = por_config;
        },
        mv_Tapes(mv_tapes){
          this.mv_tapes = mv_tapes;
@@ -429,24 +725,24 @@ export default {
    }
  },
   computed: {
-        rowSelection() {
-          const { selectedRowKeys } = this;
-          return {
-            onChange: (selectedRowKeys, selectedRows) => {
-              console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-            },
-            getCheckboxProps: record => ({
-              props: {
-                disabled: record.name === 'Disabled User', // Column configuration not to be checked
-                name: record.name,
-              },
-            }),
-          };
+    rowSelection() {
+      const { selectedRowKeys } = this;
+      return {
+        onChange: (selectedRowKeys, selectedRows) => {
+          console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows,'selectedRowKeys.length:',selectedRowKeys.length);
         },
-      },
+        getCheckboxProps: record => ({
+          props: {
+            disabled: record.name === 'Disabled User', // Column configuration not to be checked
+            name: record.name,
+          },
+        }),
+      };
+    },
+  },
   mounted() {
-        this.getMock();
-      },
+    this.getMock();
+  },
   methods: {
     getMock() {
       const targetKeys = [];

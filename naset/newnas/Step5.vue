@@ -27,7 +27,7 @@ export default {
   },
   methods: {
     finish () {
-      this.$router.push('/virtualtapelibrary/tapelibrary')
+      this.$router.push('/naset/naslist')
     },
     toOrderList () {
       this.$router.push('/list/table-list')

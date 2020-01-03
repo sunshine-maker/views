@@ -10,24 +10,14 @@
             type="inner"
             @openChange="onOpenChange"
           >
-            <a-menu-item key="/userset/sysuserlist">
-              <router-link :to="{ name: 'sysuserlist' }">
-                系统用户管理
+            <a-menu-item key="/naset/naslist">
+              <router-link :to="{ name: 'naslist' }">
+                共享目录
               </router-link>
             </a-menu-item>
-            <a-menu-item key="/userset/userlist">
-              <router-link :to="{ name: 'userlist' }">
-                操作用户管理
-              </router-link>
-            </a-menu-item>
-            <a-menu-item key="/userset/interfaceuser">
-              <router-link :to="{ name: 'interfaceuser' }">
-                接口用户管理
-              </router-link>
-            </a-menu-item>
-            <a-menu-item key="/userset/NasUser">
-              <router-link :to="{ name: 'NasUser' }">
-                共享用户管理
+            <a-menu-item key="/naset/newnas/newnas">
+              <router-link :to="{ name: 'newnas' }">
+                新建共享
               </router-link>
             </a-menu-item>
           </a-menu>

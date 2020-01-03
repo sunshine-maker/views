@@ -72,12 +72,13 @@
                         <a @click="() => modifyNet_Router(true)">修改权限</a>
                       </span>
                     </a-menu-item>
+                    <a-menu-item key="3">
+                      <span>
+                        <a @click="() => modifyNet_Router(true)">添加用户</a>
+                      </span>
+                    </a-menu-item>
                  </a-menu>
                </a-dropdown>
-                <a-divider type="vertical" />
-                 <span>
-                   <a @click="() => modifyNet_Router(true)">添加用户</a>
-                 </span>
              </span>
              <span v-else-if="record.key < '13'">
                <a-dropdown :trigger="['click']">
@@ -94,12 +95,13 @@
                          <a @click="() => modifyNet_Router(true)">修改权限</a>
                        </span>
                      </a-menu-item>
+                     <a-menu-item key="3">
+                       <span>
+                         <a @click="() => modifyNet_Router(true)">更换分组</a>
+                       </span>
+                     </a-menu-item>
                   </a-menu>
                 </a-dropdown>
-                <a-divider type="vertical" />
-                 <span>
-                   <a @click="() => modifyNet_Router(true)">更换分组</a>
-                 </span>
              </span>
            </span>
         </a-table>
@@ -122,11 +124,13 @@ const columns = [
       title: '用户组及用户',
       dataIndex: 'modle',
       key: 'modle',
+      width: '200px',
     },
     {
       title: '描述',
       dataIndex: 'describe',
-      scopedSlots: { customRender: 'describe' }
+      scopedSlots: { customRender: 'describe' },
+      width: '200px',
     },
     {
       title: '权限',
@@ -136,7 +140,7 @@ const columns = [
     {
       title: '操作',
       dataIndex: 'action',
-      width: '150px',
+      width: '100px',
       scopedSlots: { customRender: 'action' }
     }
   ];

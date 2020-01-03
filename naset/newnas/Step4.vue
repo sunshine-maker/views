@@ -3,73 +3,44 @@
     <a-form :form="form">
         <a-form-item>
           <a-row>
-            <a-col :sm="7" :xs="24">
-                <span>编辑iSCSI映射</span>
-            </a-col>
-            <a-col :sm="10" :xs="24">
-              <a-select
-                    mode="multiple"
-                    :size="size"
-                    placeholder="Please select"
-                    :defaultValue="['a1', 'b2']"
-                    style="width: 200px"
-                    @change="handleChange"
-                    @popupScroll="popupScroll"
-                  >
-                    <a-select-option v-for="i in 25" :key="(i + 9).toString(36) + i">
-                      {{(i + 9).toString(36) + i}}
-                    </a-select-option>
-                  </a-select>
-            </a-col>  
+            <a-switch checkedChildren="开" unCheckedChildren="关" defaultChecked />
+            <span>自动快照</span>
           </a-row>
-      </a-form-item>
-      <a-form-item>
           <a-row>
             <a-col :sm="7" :xs="24">
-                <span>编辑FC映射</span>
+              <span>快照间隔</span>
             </a-col>
             <a-col :sm="10" :xs="24">
-              <a-select
-                    mode="multiple"
-                    :size="size"
-                    placeholder="Please select"
-                    :defaultValue="['a1', 'b2']"
-                    style="width: 200px"
-                    @change="handleChange"
-                    @popupScroll="popupScroll"
-                  >
-                    <a-select-option v-for="i in 25" :key="(i + 9).toString(36) + i">
-                      {{(i + 9).toString(36) + i}}
-                    </a-select-option>
-                  </a-select>
+              <a-input-number
+                    :defaultValue="100"
+                    :min="0"
+                    :max="10000"
+                    :formatter="value => `${value}分钟`"
+                    :parser="value => value.replace('分钟', '')"
+                    @change="onChange"
+                  />
             </a-col>  
           </a-row>
-      </a-form-item>
-      <a-form-item>
+          
           <a-row>
             <a-col :sm="7" :xs="24">
-                <span>编辑IB映射</span>
+              <span>保留个数</span>
             </a-col>
             <a-col :sm="10" :xs="24">
-              <a-select
-                    mode="multiple"
-                    :size="size"
-                    placeholder="Please select"
-                    :defaultValue="['a1', 'b2']"
-                    style="width: 200px"
-                    @change="handleChange"
-                    @popupScroll="popupScroll"
-                  >
-                    <a-select-option v-for="i in 25" :key="(i + 9).toString(36) + i">
-                      {{(i + 9).toString(36) + i}}
-                    </a-select-option>
-                  </a-select>
+              <a-input-number
+                    :defaultValue="100"
+                    :min="0"
+                    :max="10000"
+                    :formatter="value => `${value}个`"
+                    :parser="value => value.replace('个', '')"
+                    @change="onChange"
+                  />
             </a-col>  
           </a-row>
-      </a-form-item>
+        </a-form-item>
       <a-form-item :wrapperCol="{span: 19, offset: 5}">
-        <a-button  @click="prevStep">上一步</a-button>
-        <a-button type="primary" style="margin-left: 8px" @click="nextStep">下一步</a-button>
+        <a-button  @click="prevStep"> <a-icon type="left" />上一步</a-button>
+        <a-button type="primary" @click="nextStep">下一步<a-icon type="right" /></a-button>
         <a-button style="margin-left: 8px"  type="primary" @click="finish">提交</a-button>
       </a-form-item>
     </a-form>

@@ -54,7 +54,7 @@
       <a-input type="password" placeholder="Password" />
       </a-form-item>
       <a-form-item :wrapperCol="{span: 19, offset: 5}">
-        <a-button type="primary" @click="nextStep">下一步</a-button>
+        <a-button type="primary" @click="nextStep">下一步<a-icon type="right" /></a-button>>
       </a-form-item>
     </a-form>
   </div>

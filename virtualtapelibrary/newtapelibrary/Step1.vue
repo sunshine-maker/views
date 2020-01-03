@@ -1,5 +1,5 @@
 <template>
-  <div style="text-align:center">
+  <a-card :bordered="false">
     <a-form :form="form">
       <a-form-item>
         <a-row>
@@ -83,7 +83,7 @@
         <a-button style="margin-left: 8px"  type="primary" @click="finish">提交</a-button>
       </a-form-item>
     </a-form>
-  </div>
+  </a-card>
 </template>
 
 <script>
