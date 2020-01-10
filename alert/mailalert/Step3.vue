@@ -35,6 +35,7 @@
             <a-popconfirm placement="top" okText="Yes" cancelText="No" @confirm="confirm">
               <template slot="title">
                 <p>是否确认删除该邮箱？</p>
+				<a-checkbox>确认修改</a-checkbox>
               </template>
               <a-button>删除邮箱</a-button>
             </a-popconfirm>
@@ -65,6 +66,7 @@
            <a-popconfirm placement="top" okText="Yes" cancelText="No" @confirm="confirm">
              <template slot="title">
                <p>是否确认启用该邮箱？</p>
+			   <a-checkbox>确认修改</a-checkbox>
              </template>
              <span><a>启用</a></span>
            </a-popconfirm>
@@ -75,6 +77,7 @@
            <a-popconfirm placement="top" okText="Yes" cancelText="No" @confirm="confirm">
              <template slot="title">
                <p>是否确认禁用该邮箱？</p>
+			   <a-checkbox>确认修改</a-checkbox>
              </template>
              <span><a>禁用</a></span>
            </a-popconfirm>
@@ -82,6 +85,7 @@
            <a-popconfirm placement="top" okText="Yes" cancelText="No" @confirm="confirm">
              <template slot="title">
                <p>是否确认删除该邮箱？</p>
+			   <a-checkbox>确认修改</a-checkbox>
              </template>
              <span><a>删除</a></span>
            </a-popconfirm>
@@ -92,8 +96,8 @@
       </a-form-item>
       <a-form-item >
         <div style="text-align:center;">
-        <a-button  @click="prevStep">上一步</a-button>
-        <a-button type="primary" style="margin-left: 8px" @click="nextStep">下一步</a-button>
+        <a-button  @click="prevStep"> <a-icon type="left" />上一步</a-button>
+        <a-button type="primary" @click="nextStep">下一步<a-icon type="right" /></a-button>
        </div>
       </a-form-item>
     </a-form>

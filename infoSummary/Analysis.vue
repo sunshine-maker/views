@@ -202,7 +202,6 @@
                   <v-coord type="theta" />
                 </v-chart>
               </div>
-
             </div>
           </a-card>
         </a-col>

@@ -21,6 +21,7 @@
             <a-popconfirm placement="top" okText="Yes" cancelText="No" @confirm="confirm">
               <template slot="title">
                 <p>是否确定删除该分区？</p>
+				<a-checkbox>确认修改</a-checkbox>
               </template>
               <a>删除</a>
             </a-popconfirm>

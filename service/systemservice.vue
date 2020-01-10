@@ -9,6 +9,7 @@
        <a-popconfirm placement="top" okText="Yes" cancelText="No" @confirm="confirm">
          <template slot="title">
            <p>是否确定开启该服务？</p>
+		   <a-checkbox>确认修改</a-checkbox>
          </template>
          <a>开启服务</a>
        </a-popconfirm>
@@ -23,6 +24,7 @@
                <a-popconfirm placement="top" okText="Yes" cancelText="No" @confirm="confirm">
                  <template slot="title">
                    <p>是否确定关闭该服务？</p>
+				   <a-checkbox>确认修改</a-checkbox>
                  </template>
                  <a>关闭服务</a>
                </a-popconfirm>
@@ -31,6 +33,7 @@
                <a-popconfirm placement="top" okText="Yes" cancelText="No" @confirm="confirm">
                  <template slot="title">
                    <p>是否确定重启该服务？</p>
+				   <a-checkbox>确认修改</a-checkbox>
                  </template>
                  <a>重启服务</a>
                </a-popconfirm>
@@ -38,14 +41,14 @@
              <a-menu-item>
                <span v-if="record.key < '2'">
                   <span v-if="record.key === '0'">
-                     <span @click="() => Modify_Smb(true)">修改版本</span>
+                     <span @click="() => Modify_Smb(true)">修改参数</span>
                   </span>
                    <span v-else-if="record.key === '1'">
-                      <span @click="() => Modify_Nfs(true)">修改版本</span>
+                      <span @click="() => Modify_Nfs(true)">修改参数</span>
                    </span>
                 </span>
                 <span v-else>
-                   <a disabled="True">修改版本</a>
+                   <a disabled="True">修改参数</a>
                 </span>
               </a-menu-item>
               </a-menu>
@@ -58,31 +61,119 @@
        centered
        v-model="modify_nfs"
        @ok="() => modify_nfs = false"
-       :width="500"
+       :width="700"
      >
-       <a-spin>
          <a-form>
            <a-form-item>
-           <a-select
-                  v-decorator="[
-                    'select',
-                    {rules: [{ required: true, message: '请选择NFS版本' }]}
-                  ]"
-                  placeholder="请选择NFS版本"
-                >
-                  <a-select-option value="3.0">
-                    3.0
-                  </a-select-option>
-                  <a-select-option value="4.0">
-                    4.0
-                  </a-select-option>
-                </a-select>
+             <a-row :gutter="20">
+               <a-col :sm="7" :xs="24">
+                 <span>火星舱NFS参数</span>
+               </a-col>
+               <a-col :sm="7" :xs="24">
+                 <a-select
+                     v-decorator="[
+                       'select',
+                       {rules: [{ required: true, message: '请选择NFS版本' }]}
+                     ]"
+                     placeholder="火星舱NFS版本"
+                   >
+                     <a-select-option value="3.0">
+                       3.0
+                     </a-select-option>
+                     <a-select-option value="4.0">
+                       4.0
+                     </a-select-option>
+                   </a-select>
+               </a-col>  
+               <a-col :sm="6" :xs="24"/>  
+             </a-row>
              </a-form-item>
+             <a-form-item>
+              <a-row :gutter="20">
+                <a-col :sm="7" :xs="24">
+                  <span>客户端NFS版本</span>
+                </a-col>
+                <a-col :sm="7" :xs="24">
+                  <a-select
+                      v-decorator="[
+                        'select',
+                        {rules: [{ required: true, message: '请选择NFS版本' }]}
+                      ]"
+                      placeholder="客户端NFS版本"
+                    >
+                      <a-select-option value="1.0">
+                        1.0
+                      </a-select-option>
+                      <a-select-option value="2.0">
+                        2.0
+                      </a-select-option>
+                      <a-select-option value="3.0">
+                        3.0
+                      </a-select-option>
+                      <a-select-option value="4.0">
+                        4.0
+                      </a-select-option>
+                    </a-select>
+                </a-col> 
+               <a-col :sm="6" :xs="24"/> 
+              </a-row>
+           </a-form-item>
+           <a-form-item>
+              <a-row :gutter="20">
+                <a-col :sm="7" :xs="24">
+                  <span>最大并发限制</span>
+                </a-col>
+                <a-col :sm="7" :xs="24">
+                  <a-input-number :min="1" :max="2100000000" :defaultValue="1024" @change="onChange" />
+                </a-col> 
+                <a-col :sm="6" :xs="24">
+                  <span>(1-2100000000)</span>
+                </a-col>
+              </a-row>
+           </a-form-item>
+           <a-form-item>
+              <a-row :gutter="20">
+                <a-col :sm="7" :xs="24">
+                  <span>链接队列长度</span>
+                </a-col>
+                <a-col :sm="7" :xs="24">
+                  <a-input-number :min="1" :max="2100000000" :defaultValue="32" @change="onChange" />
+                </a-col> 
+                <a-col :sm="6" :xs="24">
+                  <span>(0-2100000000)</span>
+                </a-col>
+              </a-row>
+           </a-form-item>
+           <a-form-item>
+              <a-row :gutter="20">
+                <a-col :sm="7" :xs="24">
+                  <span>已锁定的最大请求数量</span>
+                </a-col>
+                <a-col :sm="7" :xs="24">
+                  <a-input-number :min="1" :max="2100000000" :defaultValue="256" @change="onChange" />
+                </a-col> 
+                <a-col :sm="6" :xs="24">
+                  <span>(1-2100000000)</span>
+                </a-col>
+              </a-row>
+           </a-form-item>
+           <a-form-item>
+              <a-row :gutter="20">
+                <a-col :sm="7" :xs="24">
+                  <span>已锁定的最大链接队长度</span>
+                </a-col>
+                <a-col :sm="7" :xs="24">
+                  <a-input-number :min="1" :max="2100000000" :defaultValue="32" @change="onChange" />
+                </a-col> 
+                <a-col :sm="6" :xs="24">
+                  <span>(32-2100000000)</span>
+                </a-col>
+              </a-row>
+           </a-form-item>
          </a-form>
-       </a-spin>
     </a-modal>
   <a-modal
-       title="修改Samba版本"
+       title="修改Samba参数"
        centered
        v-model="modify_smb"
        @ok="() => modify_smb = false"

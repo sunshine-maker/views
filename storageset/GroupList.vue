@@ -111,7 +111,7 @@
         <template>
           <a-dropdown>
               <a class="ant-dropdown-link" href="#">
-                更多操作 <a-icon type="down" />
+                操作 <a-icon type="down" />
               </a>
               <a-menu slot="overlay">
                 <a-menu-item @click="() => setRaid_Disk(true)">卷磁盘管理</a-menu-item>
@@ -307,9 +307,6 @@
                        <a-table :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}":columns="add_columns" :dataSource="cache_data"  />
                      </template>
                    </a-modal>
-                   
-                   
-                   
               </a-menu>
             </a-dropdown>
             
@@ -362,6 +359,7 @@ export default {
       add_hotdisk:false,
       add_disk:false,
       new_disk:false,
+      modify_group: false,
       mdl: {},
       // 高级搜索 展开/关闭
       advanced: false,
@@ -397,7 +395,7 @@ export default {
         {
           title: '操作',
           dataIndex: 'action',
-          width: '100px',
+          width: '150px',
           scopedSlots: { customRender: 'action' }
         }
       ],
@@ -616,7 +614,7 @@ export default {
         {
           title: '操作',
           dataIndex: 'action',
-          width: '200px',
+          width: '100px',
           scopedSlots: { customRender: 'action' }
         }
       ],
@@ -660,6 +658,9 @@ export default {
     }
   },
   methods: {
+    modify_Group(modify_group){
+      this.modify_group = modify_group;
+    },
     setModal1Visible(modal1Visible) {
           this.modal1Visible = modal1Visible;
         },

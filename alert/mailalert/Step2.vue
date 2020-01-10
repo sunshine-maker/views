@@ -282,14 +282,15 @@
           <a-popconfirm placement="top" okText="Yes" cancelText="No" @confirm="confirm">
             <template slot="title">
               <p>是否确认删除该策略？</p>
+			  <a-checkbox>确认修改</a-checkbox>
             </template>
             <span><a>删除</a></span>
           </a-popconfirm>
         </span>
     </a-table>
     <div style="text-align:center;">
-     <a-button  @click="prevStep">上一步</a-button>
-     <a-button type="primary" style="margin-left: 8px" @click="nextStep">下一步</a-button>
+        <a-button  @click="prevStep"> <a-icon type="left" />上一步</a-button>
+        <a-button type="primary" @click="nextStep">下一步<a-icon type="right" /></a-button>
     </div>
   </a-card>
 </template>

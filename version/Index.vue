@@ -132,7 +132,7 @@ export default {
 
     .account-settings-info-left {
       border-right: 1px solid #e8e8e8;
-      width: 224px;
+      width: 150px;
     }
 
     .account-settings-info-right {
