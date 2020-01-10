@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <a-card :bordered="false">
     <a-form style="margin: 40px auto 0;"><a-form-item>
       <result title="创建成功" :is-success="true"  style="max-width: 560px;">
         
@@ -9,7 +9,7 @@
       <a-form-item :wrapperCol="{span: 19, offset: 5}">
       <a-button style="margin-left: 8px"  type="primary" @click="finish">提交</a-button></a-form-item>
     </a-form>
-  </div>
+  </a-card>
 </template>
 
 <script>
